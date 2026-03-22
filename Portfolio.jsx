@@ -1,0 +1,432 @@
+import { useState } from "react";
+
+// ═══════════════════════════════════════════════════════════════
+// GAUTAM PRASAD — PORTFOLIO
+// ═══════════════════════════════════════════════════════════════
+
+const NAV = ["Research", "Experience", "Projects", "Publications", "Education", "Contact"];
+
+const Pill = ({ children }) => (
+  <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 border border-stone-200">{children}</span>
+);
+
+const Bullet = ({ children }) => (
+  <li className="text-sm text-stone-600 leading-relaxed pl-4 relative before:content-['›'] before:absolute before:left-0 before:text-stone-400 before:font-bold">{children}</li>
+);
+
+const Dot = () => <span className="w-1 h-1 rounded-full bg-stone-300 mx-2 inline-block" />;
+
+const SectionLabel = ({ children, id }) => (
+  <div id={id} className="scroll-mt-20 mb-6">
+    <h2 className="text-lg font-bold text-stone-800 tracking-tight">{children}</h2>
+    <div className="w-6 h-0.5 bg-stone-800 rounded mt-1.5" />
+  </div>
+);
+
+/* ═════════════════════════════════════════════════════════════ */
+export default function Portfolio() {
+  const [mobileNav, setMobileNav] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-stone-50 text-stone-800 antialiased" style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif" }}>
+
+      {/* ── NAV ──────────────────────────────────────────── */}
+      <nav className="sticky top-0 z-50 bg-stone-50/95 backdrop-blur border-b border-stone-200">
+        <div className="max-w-4xl mx-auto px-6 h-12 flex items-center justify-between">
+          <a href="#" className="text-sm font-bold text-stone-900 tracking-tight">GP</a>
+          <div className="hidden md:flex items-center gap-0.5">
+            {NAV.map(s => (
+              <a key={s} href={`#${s.toLowerCase()}`} className="text-xs font-medium text-stone-500 hover:text-stone-900 px-3 py-1.5 rounded-md transition-colors">{s}</a>
+            ))}
+          </div>
+          <button className="md:hidden text-stone-500" onClick={() => setMobileNav(!mobileNav)}>
+            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
+        </div>
+        {mobileNav && (
+          <div className="md:hidden border-t border-stone-200 px-6 py-3 flex flex-col gap-2 bg-stone-50">
+            {NAV.map(s => <a key={s} href={`#${s.toLowerCase()}`} onClick={() => setMobileNav(false)} className="text-sm text-stone-600 py-1">{s}</a>)}
+          </div>
+        )}
+      </nav>
+
+      {/* ════════════════════════════════════════════════════ */}
+      {/* HERO — Name (left) + Contact Cards (right)          */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section className="max-w-4xl mx-auto px-6 pt-14 pb-10">
+        <div className="grid md:grid-cols-5 gap-8 items-start">
+
+          {/* LEFT — Name & Value Prop (3 cols) */}
+          <div className="md:col-span-3">
+            {/* Availability */}
+            <div className="flex flex-wrap items-center gap-2 mb-5">
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                Open to opportunities · Poland &amp; Europe
+              </span>
+              <span className="text-xs text-stone-400">·</span>
+              <span className="text-xs font-medium text-stone-500">Right to work in Poland</span>
+            </div>
+
+            {/* Name */}
+            <h1 className="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight leading-none mb-3">
+              Gautam Prasad
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-base text-stone-500 leading-relaxed max-w-lg mb-0">
+              Quantitative finance researcher bridging <strong className="text-stone-700">econometrics and machine learning</strong>. Building volatility forecasting models and AI-driven trading systems — combining a Computer Science engineering foundation with rigorous financial modeling.
+            </p>
+          </div>
+
+          {/* RIGHT — Contact Cards (2 cols) */}
+          <div className="md:col-span-2">
+            <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-3.5">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-0.5">Email</p>
+                <a href="mailto:work.gautamprasad@gmail.com" className="text-sm text-stone-800 font-medium hover:text-blue-700 transition-colors">work.gautamprasad@gmail.com</a>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-0.5">Phone</p>
+                <a href="tel:+48538538962" className="text-sm text-stone-800 font-medium hover:text-blue-700 transition-colors">+48 538 538 962</a>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-0.5">Location</p>
+                <p className="text-sm text-stone-800 font-medium">Poznan, Poland</p>
+              </div>
+              <div className="border-t border-stone-100 pt-3 flex flex-col gap-2">
+                <a href="https://linkedin.com/in/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm text-blue-700 font-medium hover:underline">LinkedIn ↗</a>
+                <a href="https://github.com/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm text-blue-700 font-medium hover:underline">GitHub ↗</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════ */}
+      {/* THESIS + CERTIFICATIONS — single unified card        */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section className="max-w-4xl mx-auto px-6 pb-10" id="research">
+        <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-6">
+
+          {/* Thesis */}
+          <div className="flex items-center gap-2 mb-3">
+            <span className="w-2 h-2 rounded-full bg-amber-500" />
+            <p className="text-xs font-bold uppercase tracking-wider text-amber-700">MSc Thesis · In Progress</p>
+          </div>
+          <h3 className="text-base font-bold text-stone-900 leading-snug mb-3">
+            Hybrid GARCH-LSTM Volatility Forecasting: A Comparative Analysis of Developed and Emerging Equity Markets
+          </h3>
+          <ul className="space-y-1.5 mb-5">
+            <Bullet>Comparing hybrid econometric-neural network architectures against standalone GARCH and LSTM models for out-of-sample volatility prediction across S&amp;P 500, DAX, NIFTY50, and WIG20</Bullet>
+            <Bullet>Testing whether model performance shifts across market structures and volatility regimes — calm periods vs crisis episodes</Bullet>
+          </ul>
+          <div className="flex flex-wrap gap-1.5 mb-5">
+            {["Volatility Forecasting", "GARCH / EGARCH", "LSTM", "Emerging vs Developed Markets", "R & Python"].map(t => <Pill key={t}>{t}</Pill>)}
+          </div>
+
+          {/* Divider */}
+          <div className="border-t border-amber-200/60 pt-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-3">Upcoming Examinations</p>
+            <div className="space-y-2">
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-bold text-stone-800 w-5 text-center">1.</span>
+                <div>
+                  <p className="text-sm font-semibold text-stone-800">NISM Research Analyst Certification</p>
+                  <p className="text-xs text-stone-500">NSE India — National Institute of Securities Markets · August 2026</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-bold text-stone-800 w-5 text-center">2.</span>
+                <div>
+                  <p className="text-sm font-semibold text-stone-800">CFA Level 1</p>
+                  <p className="text-xs text-stone-500">CFA Institute · February 2027</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
+
+      {/* ════════════════════════════════════════════════════ */}
+      {/* EXPERIENCE — AllForExpo FIRST (primary job)          */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section className="max-w-4xl mx-auto px-6 py-12" id="experience">
+        <SectionLabel>Experience</SectionLabel>
+
+        <div className="space-y-8">
+
+          {/* ── AllForExpo — PRIMARY, highlighted ────────────── */}
+          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1">
+              <h3 className="text-base font-bold text-stone-900">Finance Analyst</h3>
+              <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">Current Role</span>
+            </div>
+            <p className="text-sm text-blue-700 font-semibold mb-1">
+              AllForExpo Sp. z o.o.
+              <span className="text-stone-400 font-normal"> · Poznan, Poland · Sep 2025 – Present</span>
+            </p>
+            <p className="text-xs text-stone-500 mb-3">Full-time finance role supporting executive strategy and cross-departmental financial operations</p>
+            <ul className="space-y-2">
+              <Bullet>Own end-to-end financial analysis for C-level decision-making — evaluate project profitability, resource allocation scenarios, and strategic investment priorities across the organization</Bullet>
+              <Bullet>Design, build, and maintain Excel-based financial models for budgeting, rolling forecasts, and multi-department cost tracking — serving as the single source of truth for financial planning</Bullet>
+              <Bullet>Redesigned internal reporting infrastructure from scratch — automated KPI dashboards, eliminated manual reconciliation bottlenecks, and improved data transparency across finance and operations teams</Bullet>
+              <Bullet>Collaborate directly with project managers and operations leadership to align financial forecasts with execution milestones, ensuring budget discipline on active projects</Bullet>
+            </ul>
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {["Financial Modeling", "Budgeting & Forecasting", "KPI Reporting", "Executive Analysis", "Cross-functional Collaboration", "Excel"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+
+          {/* ── NAWA PROM ───────────────────────────────────── */}
+          <div>
+            <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+              <h3 className="text-sm font-bold text-stone-900">Changemaker — NAWA PROM International Exchange Program</h3>
+              <span className="text-xs text-stone-400 font-medium">Feb – Mar 2026</span>
+            </div>
+            <p className="text-xs text-blue-700 font-semibold mb-2">
+              Poznan University of Economics &amp; Business × Oulu University of Applied Sciences (Finland)
+              <span className="text-stone-400 font-normal"> · EU-funded (FERS 2021–2027)</span>
+            </p>
+            <ul className="space-y-1.5">
+              <Bullet>Selected for a competitive EU-funded academic exchange bringing together 30 students from Poland, Finland, Spain, and India to develop social innovation solutions using human-centred design and lean startup methodology</Bullet>
+              <Bullet>Led user research on the "dopamine loop" problem (declining attention spans), discovering that 52% of young people want to reduce screen time but lack tools — co-designed and prototyped <a href="https://gemini.google.com/share/4d9420f5b9ab" target="_blank" rel="noreferrer" className="text-blue-700 font-semibold hover:underline">"Unscroll"</a>, validated through user testing with a business plan deliverable</Bullet>
+            </ul>
+          </div>
+
+          {/* ── AIESEC ──────────────────────────────────────── */}
+          <div>
+            <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+              <h3 className="text-sm font-bold text-stone-900">ICX Member — AIESEC Poznan</h3>
+              <span className="text-xs text-stone-400 font-medium">Apr 2025 – Present</span>
+            </div>
+            <ul className="space-y-1">
+              <Bullet>Conduct structured interviews with international candidates and coordinate stakeholder communication across multinational exchange programs</Bullet>
+            </ul>
+          </div>
+
+          {/* ── ESN ─────────────────────────────────────────── */}
+          <div>
+            <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+              <h3 className="text-sm font-bold text-stone-900">Team Leader — Erasmus Student Network (ESN) Poznan</h3>
+              <span className="text-xs text-stone-400 font-medium">Oct – Dec 2025</span>
+            </div>
+            <ul className="space-y-1">
+              <Bullet>Led a team organizing international student integration events during the Erasmus intake, coordinating logistics and cross-cultural programming</Bullet>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
+
+      {/* ════════════════════════════════════════════════════ */}
+      {/* PROJECTS                                            */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section className="max-w-4xl mx-auto px-6 py-12" id="projects">
+        <SectionLabel>Projects</SectionLabel>
+
+        <div className="space-y-5">
+
+          {/* ── AGENTIC TRADING ─────────────────────────────── */}
+          <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-700">Actively Building</span>
+            </div>
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-base font-bold text-stone-900 leading-snug pr-3">AgenticTrading — AI-Driven Algorithmic Trading System</h3>
+              <a href="https://github.com/prabhakarpd7284/AgenticTrading" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+            </div>
+            <p className="text-sm text-stone-600 leading-relaxed mb-3">
+              A passion project applying quantitative finance principles to real-time markets through AI. Designed a multi-agent system where specialized agents handle <strong className="text-stone-800">market data analysis</strong>, <strong className="text-stone-800">directional equity trading</strong>, <strong className="text-stone-800">options strategy management</strong> (short straddle lifecycle on NIFTY/BANKNIFTY), and <strong className="text-stone-800">deterministic risk control</strong> — reflecting how institutional trading desks separate alpha generation from risk governance.
+            </p>
+            <ul className="space-y-1.5 mb-4">
+              <Bullet>Built a risk engine that validates 9 deterministic criteria (position sizing, daily loss limits, margin requirements) before any trade executes — mirroring institutional risk management practices</Bullet>
+              <Bullet>Supports two parallel workflows: intraday equity positions (NSE cash market) and options lifecycle management (HOLD / CLOSE / HEDGE / ROLL) with full P&amp;L attribution</Bullet>
+              <Bullet>Every trade decision — including rejected ones — is journaled with full audit trail, enabling post-hoc strategy analysis and performance attribution</Bullet>
+            </ul>
+            <div className="flex flex-wrap gap-1.5">
+              {["Algorithmic Trading", "Risk Management", "Options Strategy", "Portfolio Analytics", "Multi-Agent AI", "Python", "Django"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+
+          {/* ── Volatility Spillover ─────────────────────────── */}
+          <div className="bg-white border border-stone-200 rounded-xl p-5">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-sm font-bold text-stone-900 leading-snug pr-3">Volatility Spillover &amp; Market Connectedness</h3>
+              <a href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/asset-pricing-financial-markets/project" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+            </div>
+            <p className="text-xs text-stone-500 mb-2">NIFTY50, S&amp;P500, VIX, WTI Oil · 12 years (2013–2025)</p>
+            <ul className="space-y-1">
+              <Bullet>Quantified cross-market risk transmission across four asset classes, finding that Indian equities are a net shock receiver while US markets and volatility indices are dominant transmitters</Bullet>
+              <Bullet>Analyzed how market interconnectedness intensifies during crisis episodes — relevant to portfolio risk management and diversification strategy</Bullet>
+            </ul>
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {["Risk Analysis", "Market Connectedness", "Cross-Asset Research", "Econometrics", "R"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+
+          {/* ── ORLEN Valuation ──────────────────────────────── */}
+          <div className="bg-white border border-stone-200 rounded-xl p-5">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-sm font-bold text-stone-900 leading-snug pr-3">Corporate Valuation — ORLEN Group (PKN, WSE)</h3>
+              <a href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/corporate-finance/project" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+            </div>
+            <p className="text-xs text-stone-500 mb-2">Cost of Capital Estimation + DCF Valuation · FY2024</p>
+            <ul className="space-y-1">
+              <Bullet>Estimated WACC (8.8%) using CAPM, beta adjustment, and consolidated financial data — then built a 5-year free cash flow forecast to derive intrinsic equity value</Bullet>
+              <Bullet>Concluded the stock was slightly overvalued (intrinsic 104.95 PLN vs market 107.96 PLN, –2.8%) — combining cost of capital analysis with discounted cash flow methodology</Bullet>
+            </ul>
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {["Corporate Finance", "DCF Valuation", "Cost of Capital", "Financial Modeling", "Excel"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+
+          {/* ── LMT ─────────────────────────────────────────── */}
+          <div className="bg-white border border-stone-200 rounded-xl p-5">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="text-sm font-bold text-stone-900 leading-snug pr-3">Financial Statement Analysis — Lockheed Martin (NYSE: LMT)</h3>
+              <a href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/financial-statement-analysis/project" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+            </div>
+            <p className="text-xs text-stone-500 mb-2">FY2022–2024 · CFA-framework analysis · 20-slide deliverable</p>
+            <ul className="space-y-1">
+              <Bullet>Revealed that an 81% ROE was misleading — profitability decomposition showed extreme financial leverage as the primary driver, with margins compressing due to program cost overruns</Bullet>
+              <Bullet>Benchmarked against RTX, Northrop Grumman, and General Dynamics — delivered a Hold recommendation with a leverage reduction roadmap</Bullet>
+            </ul>
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {["Financial Analysis", "Equity Research", "Profitability Decomposition", "Peer Benchmarking", "Excel"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
+
+      {/* ════════════════════════════════════════════════════ */}
+      {/* PUBLICATIONS                                        */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section className="max-w-4xl mx-auto px-6 py-12" id="publications">
+        <SectionLabel>Publications</SectionLabel>
+        <div className="bg-white border border-stone-200 rounded-xl p-5">
+          <h3 className="text-sm font-bold text-stone-900 mb-1">A Comparative Study on Conventional Methods and Machine Learning Approaches to Stock Market Prediction</h3>
+          <p className="text-xs text-stone-500 mb-2">Chandigarh University · 2024</p>
+          <p className="text-sm text-stone-600 leading-relaxed">
+            Evaluated the predictive accuracy of traditional statistical models against machine learning approaches (random forests, LSTM, SVM) for equity price forecasting — contributing to the growing literature on ML applications in quantitative finance.
+          </p>
+        </div>
+      </section>
+
+      <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
+
+      {/* ════════════════════════════════════════════════════ */}
+      {/* EDUCATION + SKILLS                                  */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section className="max-w-4xl mx-auto px-6 py-12" id="education">
+        <SectionLabel>Education</SectionLabel>
+
+        <div className="space-y-5 mb-8">
+          <div className="bg-white border border-stone-200 rounded-xl p-5">
+            <div className="flex flex-wrap justify-between items-baseline gap-2 mb-1">
+              <h3 className="text-sm font-bold text-stone-900">Master in Quantitative Finance</h3>
+              <span className="text-xs text-stone-400 font-medium">2024 – Present</span>
+            </div>
+            <p className="text-xs text-blue-700 font-semibold mb-1">Poznan University of Economics and Business (PUEB)</p>
+            <p className="text-xs text-stone-500 mb-3">
+              <span className="text-emerald-700 font-bold">GPA: 4.94 / 5.0</span> <Dot /> Rector's Scholarship for Academic Excellence
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Financial Econometrics", "Asset Pricing", "Bayesian Methods", "Corporate Finance", "Portfolio Management", "Derivatives"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+
+          <div className="bg-white border border-stone-200 rounded-xl p-5">
+            <div className="flex flex-wrap justify-between items-baseline gap-2 mb-1">
+              <h3 className="text-sm font-bold text-stone-900">Bachelor of Engineering — Computer Science</h3>
+              <span className="text-xs text-stone-400 font-medium">2020 – 2024</span>
+            </div>
+            <p className="text-xs text-blue-700 font-semibold mb-1">Chandigarh University, India</p>
+            <p className="text-xs text-stone-500 mb-3">
+              <span className="text-emerald-700 font-bold">GPA: 8.51 / 10.0</span> <Dot /> Published researcher
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Machine Learning", "Algorithms & Data Structures", "Python", "SQL", "Software Engineering"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+        </div>
+
+        {/* Skills */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Quantitative Finance</p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Financial Econometrics", "Volatility Modeling", "Time Series", "Risk Analysis", "DCF / WACC", "Derivatives", "Portfolio Analysis"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Technical</p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Python", "R", "Excel", "SQL", "Power BI", "Django", "LangGraph", "Git"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Finance &amp; Reporting</p>
+            <div className="flex flex-wrap gap-1.5">
+              {["Financial Modeling", "Budgeting & Forecasting", "KPI Reporting", "Equity Research"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+          <div>
+            <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Languages</p>
+            <div className="flex flex-wrap gap-1.5">
+              {["English — Professional", "Hindi — Native", "German — A1"].map(t => <Pill key={t}>{t}</Pill>)}
+            </div>
+          </div>
+        </div>
+
+        {/* Recognition */}
+        <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-3">Recognition</p>
+        <div className="space-y-2">
+          {[
+            "Rector's Scholarship — Academic Excellence, PUEB (MSc Quantitative Finance)",
+            "1st Prize — \"Speak to Lead\" National Inter-College Debate Competition, 2022",
+            "NAWA PROM Changemaker — Selected for EU-funded Polish-Finnish academic exchange, 2026",
+          ].map((a, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <span className="text-stone-400 text-xs mt-0.5">—</span>
+              <p className="text-sm text-stone-600">{a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════ */}
+      {/* CONTACT FOOTER                                      */}
+      {/* ════════════════════════════════════════════════════ */}
+      <section id="contact" className="scroll-mt-14 bg-stone-900 text-white">
+        <div className="max-w-4xl mx-auto px-6 py-14 text-center">
+          <h2 className="text-xl font-bold mb-2">Let's connect</h2>
+          <p className="text-stone-400 text-sm mb-2 max-w-md mx-auto">
+            Seeking roles in quantitative research, algorithmic trading, risk analytics, and financial modeling — Poland and broader Europe.
+          </p>
+          <p className="text-xs text-stone-500 mb-6 max-w-md mx-auto">
+            Interested in: volatility modeling · options pricing · ML-driven forecasting · VaR &amp; stress testing · working student &amp; junior analyst positions
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a href="mailto:work.gautamprasad@gmail.com" className="text-sm font-medium bg-white text-stone-900 px-6 py-2.5 rounded-lg hover:bg-stone-100 transition-colors">work.gautamprasad@gmail.com</a>
+            <a href="https://linkedin.com/in/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm font-medium bg-white/10 text-white px-5 py-2.5 rounded-lg border border-white/15 hover:bg-white/20 transition-colors">LinkedIn</a>
+            <a href="https://github.com/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm font-medium bg-white/10 text-white px-5 py-2.5 rounded-lg border border-white/15 hover:bg-white/20 transition-colors">GitHub</a>
+          </div>
+        </div>
+        <div className="border-t border-white/10 text-center py-3">
+          <p className="text-xs text-stone-500">© 2026 Gautam Prasad · Poznan, Poland</p>
+        </div>
+      </section>
+    </div>
+  );
+}

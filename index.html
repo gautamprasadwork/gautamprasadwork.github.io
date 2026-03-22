@@ -1,704 +1,453 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gautam Prasad | Quantitative Finance</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gautam Prasad — Quantitative Finance</title>
+  <meta name="description" content="Quantitative finance researcher bridging econometrics and machine learning. MSc student at PUEB, building volatility forecasting models and AI-driven trading systems." />
+  <meta name="author" content="Gautam Prasad" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Gautam Prasad — Quantitative Finance" />
+  <meta property="og:description" content="Quantitative finance researcher bridging econometrics and machine learning." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://gautamprasadwork.github.io" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <!-- React via CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <style>
-    :root {
-      --blue:    #1d4ed8;
-      --blue2:   #2563eb;
-      --blue3:   #3b82f6;
-      --bluebg:  #eff6ff;
-      --navy:    #0f172a;
-      --text:    #1e293b;
-      --muted:   #64748b;
-      --border:  #e2e8f0;
-      --bg:      #f8fafc;
-      --bg2:     #f1f5f9;
-      --white:   #ffffff;
-      --green:   #059669;
-      --greenbg: #ecfdf5;
-      --amber:   #b45309;
-      --amberbg: #fffbeb;
-      --amberbd: #fcd34d;
-      --red:     #dc2626;
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body { font-family:'Inter',sans-serif; color:var(--text); background:var(--white); font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased; }
-
-    /* ── NAV ─────────────────────────────────── */
-    nav {
-      position:sticky; top:0; z-index:100;
-      background:rgba(255,255,255,0.95); backdrop-filter:blur(8px);
-      border-bottom:1px solid var(--border);
-      height:54px; padding:0 48px;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .nav-logo { font-size:15px; font-weight:800; color:var(--navy); letter-spacing:-0.3px; }
-    .nav-logo span { color:var(--blue2); }
-    nav ul { list-style:none; display:flex; gap:6px; }
-    nav a { color:var(--muted); text-decoration:none; font-size:13px; font-weight:500; padding:6px 12px; border-radius:6px; transition:all .15s; }
-    nav a:hover { color:var(--navy); background:var(--bg); }
-    .nav-cta { background:var(--blue2) !important; color:#fff !important; }
-    .nav-cta:hover { background:var(--blue) !important; }
-
-    /* ── FOLD ────────────────────────────────── */
-    .fold { display:grid; grid-template-columns:1fr 1fr; min-height:calc(100vh - 54px); }
-
-    /* LEFT */
-    .fold-left {
-      background:var(--white); padding:52px 48px 48px;
-      display:flex; flex-direction:column; justify-content:center;
-      border-right:1px solid var(--border);
-    }
-    .avail-badge {
-      display:inline-flex; align-items:center; gap:7px;
-      background:var(--greenbg); border:1px solid #a7f3d0;
-      color:#065f46; font-size:12px; font-weight:600;
-      padding:5px 13px; border-radius:20px; margin-bottom:22px; width:fit-content;
-    }
-    .avail-dot { width:7px; height:7px; border-radius:50%; background:var(--green); }
-
-    h1 { font-size:42px; font-weight:800; color:var(--navy); letter-spacing:-1.5px; line-height:1.05; margin-bottom:4px; }
-    .fold-title { font-size:14.5px; color:var(--muted); margin-bottom:24px; font-weight:400; }
-    .fold-title strong { color:var(--text); font-weight:600; }
-
-    /* thesis */
-    .thesis-box {
-      background:var(--amberbg); border:1px solid var(--amberbd);
-      border-left:3px solid var(--amber);
-      border-radius:8px; padding:14px 18px; margin-bottom:18px;
-    }
-    .tb-label { font-size:10.5px; font-weight:700; color:var(--amber); text-transform:uppercase; letter-spacing:1.2px; margin-bottom:5px; }
-    .thesis-box p { font-size:13px; color:#78350f; line-height:1.55; font-style:italic; }
-
-    /* cert badges */
-    .cert-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px; }
-    .cbadge {
-      display:inline-flex; align-items:center; gap:5px;
-      padding:5px 12px; border-radius:5px; font-size:12px; font-weight:600;
-      border:1px solid; white-space:nowrap;
-    }
-    .cb-blue { background:var(--bluebg); border-color:#bfdbfe; color:#1e40af; }
-    .cb-purple { background:#faf5ff; border-color:#d8b4fe; color:#6b21a8; }
-
-    /* links */
-    .fold-links { display:flex; gap:9px; flex-wrap:wrap; margin-bottom:20px; }
-    .fl { text-decoration:none; font-size:13px; font-weight:500; padding:8px 18px; border-radius:7px; transition:all .15s; }
-    .fl-solid { background:var(--blue2); color:#fff; }
-    .fl-solid:hover { background:var(--blue); }
-    .fl-ghost { background:var(--bg); color:var(--text); border:1px solid var(--border); }
-    .fl-ghost:hover { background:var(--bg2); }
-    .fold-meta { font-size:12.5px; color:var(--muted); }
-    .fold-meta span { margin-right:14px; }
-
-    /* RIGHT */
-    .fold-right { background:var(--bg); padding:40px 44px; display:flex; flex-direction:column; justify-content:center; gap:12px; }
-    .fr-label { font-size:11px; font-weight:700; color:var(--blue2); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:2px; }
-    .snap {
-      background:var(--white); border:1px solid var(--border); border-radius:9px;
-      padding:15px 18px; text-decoration:none; color:inherit; display:block;
-      transition:box-shadow .15s, border-color .15s;
-      border-left:3px solid var(--blue3);
-    }
-    .snap:hover { box-shadow:0 4px 16px rgba(37,99,235,.1); border-left-color:var(--blue2); }
-    .snap h3 { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:4px; }
-    .snap-num { font-size:13px; font-weight:700; color:var(--blue2); margin-bottom:4px; }
-    .snap p { font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:9px; }
-    .snap-tags { display:flex; gap:5px; flex-wrap:wrap; }
-    .stag { background:var(--bluebg); color:#1d4ed8; font-size:11px; font-weight:600; padding:2px 7px; border-radius:3px; }
-    .more-btn {
-      text-align:center; font-size:12.5px; color:var(--blue2); font-weight:600;
-      text-decoration:none; padding:9px; display:block;
-      border:1px dashed var(--border); border-radius:8px;
-      background:var(--white); transition:background .15s;
-    }
-    .more-btn:hover { background:var(--bluebg); }
-
-    /* ── SECTION SHELL ───────────────────────── */
-    .sec { padding:64px 0; }
-    .sec.alt { background:var(--bg); }
-    .inner { max-width:920px; margin:0 auto; padding:0 48px; }
-    .s-eyebrow { font-size:11px; font-weight:700; color:var(--blue2); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:6px; }
-    .s-title { font-size:25px; font-weight:800; color:var(--navy); margin-bottom:8px; letter-spacing:-0.5px; }
-    .s-bar { width:32px; height:3px; background:var(--blue2); border-radius:2px; margin-bottom:30px; }
-
-    /* ── PROJECTS ────────────────────────────── */
-    .proj-grid { display:grid; gap:16px; }
-    .proj {
-      background:var(--white); border:1px solid var(--border); border-radius:10px;
-      padding:22px 26px; border-left:4px solid var(--blue3);
-      transition:box-shadow .15s;
-    }
-    .proj:hover { box-shadow:0 4px 18px rgba(0,0,0,.06); }
-    .proj-top { display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:6px; }
-    .proj h3 { font-size:15px; font-weight:700; color:var(--navy); }
-    .gh-btn { font-size:12px; color:var(--blue2); font-weight:600; text-decoration:none; white-space:nowrap; padding:4px 10px; border:1px solid #bfdbfe; border-radius:5px; background:var(--bluebg); }
-    .gh-btn:hover { background:#dbeafe; }
-    .proj-result {
-      background:var(--bg); border-radius:6px; padding:10px 14px; margin-bottom:12px;
-      font-size:13.5px; color:var(--text); line-height:1.55;
-    }
-    .proj-result strong { color:var(--navy); }
-    .proj-body { font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:12px; }
-    .tag-row { display:flex; gap:6px; flex-wrap:wrap; }
-    .tag { background:var(--bluebg); color:#1d4ed8; font-size:11.5px; font-weight:600; padding:3px 9px; border-radius:4px; }
-
-    /* ── THESIS ──────────────────────────────── */
-    .thesis-card {
-      background:linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-      color:#fff; border-radius:12px; padding:32px 36px; margin-bottom:16px;
-    }
-    .tc-eye { font-size:11px; font-weight:700; color:#fcd34d; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
-    .thesis-card h3 { font-size:19px; font-weight:700; line-height:1.45; margin-bottom:12px; }
-    .thesis-card p { font-size:14px; color:rgba(255,255,255,.7); line-height:1.7; }
-    .tc-tags { display:flex; gap:8px; flex-wrap:wrap; margin-top:18px; }
-    .tc-tag { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:rgba(255,255,255,.75); font-size:12px; padding:4px 11px; border-radius:5px; }
-
-    .pub-row {
-      border:1px solid var(--border); border-radius:8px; padding:16px 20px;
-      display:flex; align-items:flex-start; gap:14px;
-    }
-    .pub-icon { font-size:22px; min-width:28px; }
-    .pub-row h4 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:2px; }
-    .pub-row p { font-size:13px; color:var(--muted); }
-
-    /* ── EXPERIENCE ──────────────────────────── */
-    .exp-item { padding-bottom:28px; margin-bottom:28px; border-bottom:1px solid var(--border); }
-    .exp-item:last-child { border:none; padding:0; margin:0; }
-    .exp-top { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
-    .exp-item h3 { font-size:15.5px; font-weight:700; color:var(--navy); }
-    .exp-date { font-size:12px; font-weight:600; color:var(--muted); background:var(--bg); padding:3px 10px; border-radius:4px; white-space:nowrap; flex-shrink:0; }
-    .exp-co { font-size:13.5px; font-weight:600; color:var(--blue2); margin:3px 0 12px; }
-    .exp-co .loc { font-weight:400; color:var(--muted); }
-    .exp-ul { list-style:none; display:flex; flex-direction:column; gap:6px; }
-    .exp-ul li { font-size:13.5px; color:var(--muted); padding-left:16px; position:relative; line-height:1.6; }
-    .exp-ul li::before { content:'▸'; position:absolute; left:0; color:var(--blue3); font-size:10px; top:4px; }
-
-    /* ── ACTIVITIES ──────────────────────────── */
-    .act-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .act-card {
-      border:1px solid var(--border); border-radius:8px; padding:16px 18px;
-      display:flex; gap:12px; align-items:flex-start;
-    }
-    .act-icon { font-size:20px; min-width:24px; }
-    .act-card h4 { font-size:13.5px; font-weight:700; color:var(--navy); margin-bottom:2px; }
-    .act-card .act-org { font-size:12.5px; color:var(--blue2); font-weight:600; margin-bottom:4px; }
-    .act-card p { font-size:12.5px; color:var(--muted); line-height:1.5; }
-
-    /* ── EDUCATION ───────────────────────────── */
-    .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .edu-card {
-      border:1px solid var(--border); border-radius:10px; padding:22px 24px;
-      border-top:3px solid var(--blue2);
-    }
-    .edu-deg { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:3px; }
-    .edu-school { font-size:13px; font-weight:600; color:var(--blue2); margin-bottom:6px; }
-    .edu-meta { font-size:12.5px; color:var(--muted); margin-bottom:12px; }
-    .edu-gpa { color:var(--green); font-weight:700; }
-    .edu-tags { display:flex; flex-wrap:wrap; gap:6px; }
-    .edu-tag { background:var(--bg); border:1px solid var(--border); color:var(--muted); font-size:11.5px; padding:2px 9px; border-radius:4px; }
-
-    /* ── CERTIFICATIONS ──────────────────────── */
-    .cert-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .cert-card {
-      border:1px solid var(--border); border-radius:10px; padding:20px 22px;
-      display:flex; gap:14px; align-items:flex-start;
-    }
-    .cert-icon { font-size:26px; }
-    .cert-card h3 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:3px; }
-    .cert-card .cert-org { font-size:13px; color:var(--muted); margin-bottom:9px; }
-    .cert-pill { font-size:12px; font-weight:700; padding:4px 11px; border-radius:12px; display:inline-block; }
-    .cp-blue   { background:#dbeafe; color:#1e40af; }
-    .cp-purple { background:#f3e8ff; color:#6b21a8; }
-
-    /* ── SKILLS ──────────────────────────────── */
-    .skill-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-    .sg h3 { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:12px; }
-    .skill-tags { display:flex; flex-wrap:wrap; gap:7px; }
-    .sk { font-size:12.5px; font-weight:500; padding:5px 11px; border-radius:5px; border:1px solid var(--border); background:var(--bg); color:var(--text); }
-    .sk.hi { background:var(--bluebg); border-color:#bfdbfe; color:#1d4ed8; font-weight:600; }
-
-    /* ── ACHIEVEMENTS ────────────────────────── */
-    .ach-list { display:flex; flex-direction:column; gap:11px; }
-    .ach { border:1px solid var(--border); border-radius:8px; padding:15px 18px; display:flex; gap:13px; }
-    .ach-icon { font-size:18px; min-width:22px; }
-    .ach h4 { font-size:14px; font-weight:700; color:var(--navy); margin-bottom:2px; }
-    .ach p { font-size:13px; color:var(--muted); }
-
-    /* ── CONTACT ─────────────────────────────── */
-    .contact-wrap { background:var(--navy); color:#fff; text-align:center; padding:56px 48px; }
-    .contact-wrap h2 { font-size:26px; font-weight:800; margin-bottom:8px; }
-    .contact-wrap p { color:rgba(255,255,255,.6); margin-bottom:26px; font-size:15px; }
-    .clinks { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-    .cl { display:inline-flex; align-items:center; gap:7px; padding:10px 22px; border-radius:7px; font-size:14px; font-weight:500; text-decoration:none; transition:all .15s; }
-    .cl-solid { background:var(--blue2); color:#fff; }
-    .cl-solid:hover { background:var(--blue); }
-    .cl-ghost { background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.2); }
-    .cl-ghost:hover { background:rgba(255,255,255,.15); }
-    footer { background:#060e18; color:rgba(255,255,255,.25); text-align:center; padding:14px; font-size:12px; }
-
-    @media(max-width:780px) {
-      .fold { grid-template-columns:1fr; }
-      .fold-right, .fold-left { border:none; min-height:auto; }
-      .fold-right { display:none; }
-      h1 { font-size:32px; }
-      .fold-left { padding:40px 24px; }
-      .inner { padding:0 24px; }
-      .edu-grid, .cert-grid, .skill-grid, .act-grid { grid-template-columns:1fr; }
-      nav ul { display:none; }
-    }
+    .animate-pulse-dot { animation: pulse-dot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    html { scroll-behavior: smooth; }
   </style>
 </head>
 <body>
+  <div id="root"></div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">Gautam <span>Prasad</span></div>
-  <ul>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#research">Research</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>
-  </ul>
-</nav>
+  <script type="text/babel">
+    const { useState } = React;
 
-<!-- ══ ABOVE THE FOLD ══════════════════════════════════════════════ -->
-<div class="fold">
+    const NAV = ["Research", "Experience", "Projects", "Publications", "Education", "Contact"];
 
-  <!-- LEFT — identity -->
-  <div class="fold-left">
-    <div class="avail-badge"><div class="avail-dot"></div>Open to opportunities · Poland &amp; Europe</div>
+    const Pill = ({ children }) => (
+      <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-stone-100 text-stone-600 border border-stone-200">{children}</span>
+    );
 
-    <h1>Gautam Prasad</h1>
-    <p class="fold-title"><strong>MSc Quantitative Finance</strong> · Poznan University of Economics and Business · GPA 4.94 / 5.0</p>
+    const Bullet = ({ children }) => (
+      <li className="text-sm text-stone-600 leading-relaxed pl-4 relative before:content-['›'] before:absolute before:left-0 before:text-stone-400 before:font-bold">{children}</li>
+    );
 
-    <div class="thesis-box">
-      <div class="tb-label">MSc Thesis · In Progress</div>
-      <p>Hybrid GARCH-LSTM Volatility Forecasting: A Comparative Analysis of Developed and Emerging Equity Markets</p>
-    </div>
+    const Dot = () => <span className="w-1 h-1 rounded-full bg-stone-300 mx-2 inline-block" />;
 
-    <div class="cert-row">
-      <span class="cbadge cb-blue">📊 NISM Research Analyst · Aug 2026</span>
-      <span class="cbadge cb-purple">🏆 CFA Level 1 · Feb 2027</span>
-    </div>
-
-    <div class="fold-links">
-      <a href="https://github.com/gautamprasadwork/quant-finance-masters" class="fl fl-solid" target="_blank">⚡ GitHub Projects</a>
-      <a href="https://linkedin.com/in/gautamprasadwork" class="fl fl-ghost" target="_blank">LinkedIn</a>
-      <a href="mailto:work.gautamprasad@gmail.com" class="fl fl-ghost">Email</a>
-    </div>
-    <p class="fold-meta">
-      <span>📍 Poznań, Poland</span>
-      <span>+48 538 538 962</span>
-    </p>
-  </div>
-
-  <!-- RIGHT — project snapshots -->
-  <div class="fold-right">
-    <div class="fr-label">Featured Projects</div>
-
-    <a class="snap" href="#projects">
-      <h3>Volatility Spillover — NIFTY50 / S&amp;P500 / VIX / Oil</h3>
-      <div class="snap-num">12 years · 2013–2025</div>
-      <p>VIX &amp; S&amp;P500 are dominant shock transmitters. NIFTY50 is a net receiver. TCI spikes 3× during crisis episodes.</p>
-      <div class="snap-tags"><span class="stag">Diebold-Yilmaz</span><span class="stag">VAR</span><span class="stag">FEVD</span><span class="stag">R</span></div>
-    </a>
-
-    <a class="snap" href="#projects">
-      <h3>WACC Estimation — ORLEN Group (PKN)</h3>
-      <div class="snap-num">WACC = 8.8% · β = 0.92 · Ke = 11.07%</div>
-      <p>Hamada equation beta via Damodaran industry data. Cost of debt from FY2024 consolidated financials. 66/34 capital structure.</p>
-      <div class="snap-tags"><span class="stag">CAPM</span><span class="stag">Hamada Eq.</span><span class="stag">WACC</span><span class="stag">Excel</span></div>
-    </a>
-
-    <a class="snap" href="#projects">
-      <h3>DCF Valuation — ORLEN Group (PKN)</h3>
-      <div class="snap-num">Intrinsic: 104.95 PLN · Market: 107.96 PLN → Overvalued –2.8%</div>
-      <p>5-year FCFF forecast (2025–2029). Gordon Growth terminal value (g=0%). Equity bridge vs market price.</p>
-      <div class="snap-tags"><span class="stag">DCF</span><span class="stag">FCFF</span><span class="stag">Terminal Value</span><span class="stag">Excel</span></div>
-    </a>
-
-    <a class="snap" href="#projects">
-      <h3>Financial Analysis — Lockheed Martin (NYSE: LMT)</h3>
-      <div class="snap-num">ROE 81% decomposed · D/E 3.20x · 20-slide presentation</div>
-      <p>DuPont shows ROE inflated by leverage (8.21x), not margin. Gross margin fell 300bps. Peer benchmarked vs RTX, NOC, GD.</p>
-      <div class="snap-tags"><span class="stag">DuPont</span><span class="stag">CFA Framework</span><span class="stag">Peer Analysis</span><span class="stag">US GAAP</span></div>
-    </a>
-
-    <a class="snap" href="#projects">
-      <h3>AgenticTrading — AI-Driven Indian Stock Market System</h3>
-      <div class="snap-num">500K INR capital · Equity + Options (NIFTY/BANKNIFTY)</div>
-      <p>Multi-agent LangGraph system with Claude as the trading brain. Directional equity trades + short straddle lifecycle management. Deterministic risk guard as final execution gate.</p>
-      <div class="snap-tags"><span class="stag">LangGraph</span><span class="stag">Claude API</span><span class="stag">Django</span><span class="stag">Angel One</span></div>
-    </a>
-
-    <a class="more-btn" href="https://github.com/gautamprasadwork/quant-finance-masters" target="_blank">View full code & reports on GitHub →</a>
-  </div>
-
-</div>
-<!-- ═══════════════════════════════════════════════════════════════ -->
-
-
-<!-- PROJECTS FULL -->
-<div class="sec" id="projects">
-<div class="inner">
-  <div class="s-eyebrow">GitHub Portfolio</div>
-  <div class="s-title">Projects</div>
-  <div class="s-bar"></div>
-  <div class="proj-grid">
-
-    <!-- P1 -->
-    <div class="proj">
-      <div class="proj-top">
-        <h3>Volatility Spillover &amp; Market Connectedness — NIFTY50, S&amp;P500, VIX, WTI Oil (2013–2025)</h3>
-        <a class="gh-btn" href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/asset-pricing-financial-markets/project" target="_blank">GitHub ↗</a>
+    const SectionLabel = ({ children, id }) => (
+      <div id={id} className="scroll-mt-20 mb-6">
+        <h2 className="text-lg font-bold text-stone-800 tracking-tight">{children}</h2>
+        <div className="w-6 h-0.5 bg-stone-800 rounded mt-1.5" />
       </div>
-      <div class="proj-result">
-        <strong>NIFTY50 is a net receiver of global shocks.</strong> VIX and S&amp;P500 are the dominant transmitters. Total Connectedness Index (TCI) spikes sharply during all three crisis episodes — 2015–16 (commodity crash), COVID-2020, and 2022 (Ukraine/Fed tightening) — confirming cross-market integration intensifies under stress.
-      </div>
-      <p class="proj-body">
-        Built a VAR model on 12 years of daily log-returns with lag selection via Schwarz Criterion. Applied the static Diebold-Yilmaz (2012) spillover index using 20-step-ahead FEVD to compute directional TO/FROM/NET connectedness. Followed with a 180-day rolling window to produce a time-varying Total Connectedness Index (TCI). Pairwise spillover series (SPX↔NIFTY, VIX↔NIFTY, OIL↔NIFTY) then quantified channel-specific transmission. Crisis-period averages isolate how each channel activates differently per episode.
-      </p>
-      <div class="tag-row">
-        <span class="tag">Diebold-Yilmaz (2012)</span><span class="tag">VAR</span><span class="tag">FEVD</span>
-        <span class="tag">Dynamic Connectedness</span><span class="tag">Rolling Window</span><span class="tag">R</span>
-      </div>
-    </div>
+    );
 
-    <!-- P2 -->
-    <div class="proj">
-      <div class="proj-top">
-        <h3>WACC Estimation — ORLEN Group S.A. (PKN, WSE) · FY2024</h3>
-        <a class="gh-btn" href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/corporate-finance/project/assignment-1-cost-of-capital" target="_blank">GitHub ↗</a>
-      </div>
-      <div class="proj-result">
-        <strong>WACC = 8.8%</strong> · β<sub>L</sub> = 0.92 · K<sub>e</sub> = 11.07% · K<sub>d</sub> (after-tax) = 4.40% · Capital structure: 66% equity / 34% debt (total firm value PLN 86.8bn)
-      </div>
-      <p class="proj-body">
-        Selected ORLEN Group (PKN ORLEN), one of Central Europe's largest integrated energy companies (WIG30). Estimated levered beta using the Hamada equation — unlevered β = 0.65 from Damodaran's energy sector data, re-levered at ORLEN's 52% D/E ratio and 19% Polish CIT to yield β<sub>L</sub> = 0.92. Applied CAPM (R<sub>f</sub> = 6%, MRP = 5.5%) to derive K<sub>e</sub> = 11.07%. Cost of debt estimated from FY2024 consolidated financials: PLN 1.605bn interest expense / PLN 29.54bn total interest-bearing liabilities = 5.43% pre-tax, 4.40% after-tax.
-      </p>
-      <div class="tag-row">
-        <span class="tag">WACC</span><span class="tag">CAPM</span><span class="tag">Hamada Equation</span>
-        <span class="tag">Beta Estimation</span><span class="tag">Damodaran</span><span class="tag">Excel</span>
-      </div>
-    </div>
+    function Portfolio() {
+      const [mobileNav, setMobileNav] = useState(false);
 
-    <!-- P3 -->
-    <div class="proj">
-      <div class="proj-top">
-        <h3>DCF Firm Valuation — ORLEN Group S.A. (PKN) · Forecast 2025–2029</h3>
-        <a class="gh-btn" href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/corporate-finance/project/assignment-2-dcf-valuation" target="_blank">GitHub ↗</a>
-      </div>
-      <div class="proj-result">
-        <strong>Intrinsic value: 104.95 PLN vs market price: 107.96 PLN → Stock slightly overvalued by 2.8%.</strong> Total firm value: PLN 151.3bn (PV of FCFFs: 38.2bn + PV of terminal value: 102.0bn + non-operating assets: 11.0bn).
-      </div>
-      <p class="proj-body">
-        Built a full FCFF model (EBIT(1−T) + D&amp;A − ΔWorking Capital − Net CapEx) over a 5-year explicit horizon, anchored to 18.3% sales growth (2020–2024 historical avg) and 10.92% EBIT margin. Discounted at WACC = 8.8% from Assignment 1. Residual value computed via Gordon Growth Model with g = 0% (conservative energy sector assumption), yielding PV(RV) = PLN 102bn. Equity value derived by subtracting net debt from enterprise value and dividing by 1.16bn shares outstanding.
-      </p>
-      <div class="tag-row">
-        <span class="tag">DCF</span><span class="tag">FCFF</span><span class="tag">Gordon Growth</span>
-        <span class="tag">Terminal Value</span><span class="tag">Enterprise Value</span><span class="tag">Excel</span>
-      </div>
-    </div>
+      return (
+        <div className="min-h-screen bg-stone-50 text-stone-800 antialiased font-sans">
 
-    <!-- P4 -->
-    <div class="proj">
-      <div class="proj-top">
-        <h3>Financial Statement Analysis — Lockheed Martin (NYSE: LMT) · FY2022–2024</h3>
-        <a class="gh-btn" href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/financial-statement-analysis/project" target="_blank">GitHub ↗</a>
-      </div>
-      <div class="proj-result">
-        <strong>ROE of 81% is misleading</strong> — DuPont decomposition reveals it is driven by extreme financial leverage (8.21x equity multiplier), not earnings quality. Net margin declined from 10.2% to 7.5% while D/E surged from 1.70x to 3.20x. <strong>Recommendation: Hold. Reduce leverage to below D/E 2.0x within 3 years.</strong>
-      </div>
-      <p class="proj-body">
-        Applied the 6-phase CFA Financial Analysis Framework to Lockheed Martin ($71.1B revenue, ~$120B market cap), world's largest defense contractor, using SEC 10-K filings (US GAAP) and Bloomberg data. Revenue grew 7.7% ($66B→$71.1B) but gross profit fell $1.3B and net income dropped 23% ($6.9B→$5.3B) — gross margin compressed 300bps due to F-35 Block 4 cost overruns and supply chain inflation. DuPont ROE = 7.5% × 1.31x × 8.21x. OCF/Net Income = 1.31x (strong earnings quality). CCC = 19.6 days. Peer-benchmarked against RTX, NOC, and GD — LMT leads on ROA (9.6% vs 3.0–8.5%) but carries the highest leverage (D/E 3.20x vs peer avg 0.85x). Delivered as a 20-slide presentation.
-      </p>
-      <div class="tag-row">
-        <span class="tag">CFA Framework</span><span class="tag">DuPont</span><span class="tag">ROE / ROIC</span>
-        <span class="tag">Peer Analysis</span><span class="tag">US GAAP / 10-K</span><span class="tag">Excel + PPT</span>
-      </div>
-    </div>
+          {/* NAV */}
+          <nav className="sticky top-0 z-50 bg-stone-50/95 backdrop-blur border-b border-stone-200">
+            <div className="max-w-4xl mx-auto px-6 h-12 flex items-center justify-between">
+              <a href="#" className="text-sm font-bold text-stone-900 tracking-tight">GP</a>
+              <div className="hidden md:flex items-center gap-0.5">
+                {NAV.map(s => (
+                  <a key={s} href={`#${s.toLowerCase()}`} className="text-xs font-medium text-stone-500 hover:text-stone-900 px-3 py-1.5 rounded-md transition-colors">{s}</a>
+                ))}
+              </div>
+              <button className="md:hidden text-stone-500" onClick={() => setMobileNav(!mobileNav)}>
+                <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+              </button>
+            </div>
+            {mobileNav && (
+              <div className="md:hidden border-t border-stone-200 px-6 py-3 flex flex-col gap-2 bg-stone-50">
+                {NAV.map(s => <a key={s} href={`#${s.toLowerCase()}`} onClick={() => setMobileNav(false)} className="text-sm text-stone-600 py-1">{s}</a>)}
+              </div>
+            )}
+          </nav>
 
-    <!-- P5 -->
-    <div class="proj">
-      <div class="proj-top">
-        <h3>AgenticTrading — AI-Driven Indian Stock Market Trading System</h3>
-        <a class="gh-btn" href="https://github.com/prabhakarpd7284/AgenticTrading" target="_blank">GitHub ↗</a>
-      </div>
-      <div class="proj-result">
-        <strong>Multi-agent LLM system for live NSE trading with deterministic risk control.</strong> Supports two parallel workflows: intraday BUY/SELL equity positions and short straddle lifecycle management (NIFTY/BANKNIFTY options). Paper trading by default; capital: ₹5,00,000. @RiskGuard acts as an unbypassable final gate before every execution.
-      </div>
-      <p class="proj-body">
-        Built on Django 5.1 + LangGraph with Claude (claude-sonnet-4-6) as the trading brain. The system runs a named AI virtual team — @DirectionalTrader plans equity trades from intraday OHLCV structure, @OptionsStrategist manages straddle positions (HOLD/CLOSE/HEDGE/ROLL), @DataAnalyst pulls live market data from Angel One SmartAPI, and @RiskGuard validates 9 deterministic criteria before any order is placed. Every decision — including rejected trades — is journaled to AuditLog. RAG retrieval via @PortfolioTracker provides capital and P&L context to the LLM planner at runtime.
-      </p>
-      <div class="tag-row">
-        <span class="tag">LangGraph</span><span class="tag">Claude API</span><span class="tag">Multi-Agent</span>
-        <span class="tag">Django</span><span class="tag">Angel One SmartAPI</span><span class="tag">Options Strategy</span><span class="tag">Python</span>
-      </div>
-    </div>
+          {/* HERO */}
+          <section className="max-w-4xl mx-auto px-6 pt-14 pb-10">
+            <div className="grid md:grid-cols-5 gap-8 items-start">
+              <div className="md:col-span-3">
+                <div className="flex flex-wrap items-center gap-2 mb-5">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-medium text-emerald-700">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot" />
+                    Open to opportunities · Poland &amp; Europe
+                  </span>
+                  <span className="text-xs text-stone-400">·</span>
+                  <span className="text-xs font-medium text-stone-500">Right to work in Poland</span>
+                </div>
+                <h1 className="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight leading-none mb-3">
+                  Gautam Prasad
+                </h1>
+                <p className="text-base text-stone-500 leading-relaxed max-w-lg mb-0">
+                  Quantitative finance researcher bridging <strong className="text-stone-700">econometrics and machine learning</strong>. Building volatility forecasting models and AI-driven trading systems — combining a Computer Science engineering foundation with rigorous financial modeling.
+                </p>
+              </div>
 
-  </div>
-</div>
-</div>
+              <div className="md:col-span-2">
+                <div className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm space-y-3.5">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-0.5">Email</p>
+                    <a href="mailto:work.gautamprasad@gmail.com" className="text-sm text-stone-800 font-medium hover:text-blue-700 transition-colors">work.gautamprasad@gmail.com</a>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-0.5">Phone</p>
+                    <a href="tel:+48538538962" className="text-sm text-stone-800 font-medium hover:text-blue-700 transition-colors">+48 538 538 962</a>
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-0.5">Location</p>
+                    <p className="text-sm text-stone-800 font-medium">Poznan, Poland</p>
+                  </div>
+                  <div className="border-t border-stone-100 pt-3 flex flex-col gap-2">
+                    <a href="https://linkedin.com/in/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm text-blue-700 font-medium hover:underline">LinkedIn ↗</a>
+                    <a href="https://github.com/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm text-blue-700 font-medium hover:underline">GitHub ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
+          {/* THESIS + CERTIFICATIONS */}
+          <section className="max-w-4xl mx-auto px-6 pb-10" id="research">
+            <div className="bg-amber-50/50 border border-amber-200/80 rounded-xl p-6">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-2 h-2 rounded-full bg-amber-500" />
+                <p className="text-xs font-bold uppercase tracking-wider text-amber-700">MSc Thesis · In Progress</p>
+              </div>
+              <h3 className="text-base font-bold text-stone-900 leading-snug mb-3">
+                Hybrid GARCH-LSTM Volatility Forecasting: A Comparative Analysis of Developed and Emerging Equity Markets
+              </h3>
+              <ul className="space-y-1.5 mb-5">
+                <Bullet>Comparing hybrid econometric-neural network architectures against standalone GARCH and LSTM models for out-of-sample volatility prediction across S&amp;P 500, DAX, NIFTY50, and WIG20</Bullet>
+                <Bullet>Testing whether model performance shifts across market structures and volatility regimes — calm periods vs crisis episodes</Bullet>
+              </ul>
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {["Volatility Forecasting", "GARCH / EGARCH", "LSTM", "Emerging vs Developed Markets", "R & Python"].map(t => <Pill key={t}>{t}</Pill>)}
+              </div>
 
-<!-- THESIS -->
-<div class="sec alt" id="research">
-<div class="inner">
-  <div class="s-eyebrow">Academic Research</div>
-  <div class="s-title">Thesis &amp; Publications</div>
-  <div class="s-bar"></div>
+              <div className="border-t border-amber-200/60 pt-4">
+                <p className="text-xs font-bold uppercase tracking-wider text-amber-700 mb-3">Upcoming Examinations</p>
+                <div className="space-y-2">
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-bold text-stone-800 w-5 text-center">1.</span>
+                    <div>
+                      <p className="text-sm font-semibold text-stone-800">NISM Research Analyst Certification</p>
+                      <p className="text-xs text-stone-500">NSE India — National Institute of Securities Markets · August 2026</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-sm font-bold text-stone-800 w-5 text-center">2.</span>
+                    <div>
+                      <p className="text-sm font-semibold text-stone-800">CFA Level 1</p>
+                      <p className="text-xs text-stone-500">CFA Institute · February 2027</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
-  <div class="thesis-card">
-    <div class="tc-eye">MSc Thesis · In Progress</div>
-    <h3>Hybrid GARCH-LSTM Volatility Forecasting: A Comparative Analysis of Developed and Emerging Equity Markets</h3>
-    <p>Investigating whether a hybrid architecture — combining GARCH-family econometric models with LSTM neural networks — produces superior out-of-sample volatility forecasts compared to standalone approaches. Study spans developed markets (S&amp;P 500, DAX) and emerging markets (NIFTY50, WIG20), testing whether model dominance varies across market structures and volatility regimes.</p>
-    <div class="tc-tags">
-      <span class="tc-tag">GARCH / EGARCH</span>
-      <span class="tc-tag">LSTM Neural Networks</span>
-      <span class="tc-tag">Volatility Forecasting</span>
-      <span class="tc-tag">Developed vs Emerging Markets</span>
-      <span class="tc-tag">R &amp; Python</span>
-    </div>
-  </div>
+          <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
 
-  <div class="pub-row">
-    <div class="pub-icon">📄</div>
-    <div>
-      <h4>Academic Publication</h4>
-      <p>A Comparative Study on Conventional Methods and Machine Learning Approaches to Stock Market Prediction · Chandigarh University, 2024</p>
-    </div>
-  </div>
-</div>
-</div>
+          {/* EXPERIENCE */}
+          <section className="max-w-4xl mx-auto px-6 py-12" id="experience">
+            <SectionLabel>Experience</SectionLabel>
+            <div className="space-y-8">
 
+              {/* AllForExpo */}
+              <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1">
+                  <h3 className="text-base font-bold text-stone-900">Finance Analyst</h3>
+                  <span className="text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">Current Role</span>
+                </div>
+                <p className="text-sm text-blue-700 font-semibold mb-1">
+                  AllForExpo Sp. z o.o.
+                  <span className="text-stone-400 font-normal"> · Poznan, Poland · Sep 2025 – Present</span>
+                </p>
+                <p className="text-xs text-stone-500 mb-3">Full-time finance role supporting executive strategy and cross-departmental financial operations</p>
+                <ul className="space-y-2">
+                  <Bullet>Own end-to-end financial analysis for C-level decision-making — evaluate project profitability, resource allocation scenarios, and strategic investment priorities across the organization</Bullet>
+                  <Bullet>Design, build, and maintain Excel-based financial models for budgeting, rolling forecasts, and multi-department cost tracking — serving as the single source of truth for financial planning</Bullet>
+                  <Bullet>Redesigned internal reporting infrastructure from scratch — automated KPI dashboards, eliminated manual reconciliation bottlenecks, and improved data transparency across finance and operations teams</Bullet>
+                  <Bullet>Collaborate directly with project managers and operations leadership to align financial forecasts with execution milestones, ensuring budget discipline on active projects</Bullet>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  {["Financial Modeling", "Budgeting & Forecasting", "KPI Reporting", "Executive Analysis", "Cross-functional Collaboration", "Excel"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
 
-<!-- EXPERIENCE -->
-<div class="sec" id="experience">
-<div class="inner">
-  <div class="s-eyebrow">Work Experience</div>
-  <div class="s-title">Experience</div>
-  <div class="s-bar"></div>
+              {/* NAWA PROM */}
+              <div>
+                <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+                  <h3 className="text-sm font-bold text-stone-900">Changemaker — NAWA PROM International Exchange Program</h3>
+                  <span className="text-xs text-stone-400 font-medium">Feb – Mar 2026</span>
+                </div>
+                <p className="text-xs text-blue-700 font-semibold mb-2">
+                  Poznan University of Economics &amp; Business × Oulu University of Applied Sciences (Finland)
+                  <span className="text-stone-400 font-normal"> · EU-funded (FERS 2021–2027)</span>
+                </p>
+                <ul className="space-y-1.5">
+                  <Bullet>Selected for a competitive EU-funded academic exchange bringing together 30 students from Poland, Finland, Spain, and India to develop social innovation solutions using human-centred design and lean startup methodology</Bullet>
+                  <Bullet>Led user research on the "dopamine loop" problem (declining attention spans), discovering that 52% of young people want to reduce screen time but lack tools — co-designed and prototyped <a href="https://gemini.google.com/share/4d9420f5b9ab" target="_blank" rel="noreferrer" className="text-blue-700 font-semibold hover:underline">"Unscroll"</a>, validated through user testing with a business plan deliverable</Bullet>
+                </ul>
+              </div>
 
-  <div class="exp-item">
-    <div class="exp-top">
-      <h3>Finance Analyst</h3>
-      <span class="exp-date">Sep 2025 – Present</span>
-    </div>
-    <div class="exp-co">AllForExpo Sp. z o.o. <span class="loc">· Poznań, Poland</span></div>
-    <ul class="exp-ul">
-      <li>Deliver financial and operational analysis to support C-level decision-making on strategic projects and resource allocation.</li>
-      <li>Build and maintain Excel-based financial models for budgeting, cost tracking, and KPI reporting across departments.</li>
-      <li>Redesigned internal reporting processes, improving data transparency and eliminating manual reconciliation inefficiencies.</li>
-      <li>Collaborate with project and operations teams to align financial forecasts with execution milestones.</li>
-    </ul>
-  </div>
+              {/* AIESEC */}
+              <div>
+                <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+                  <h3 className="text-sm font-bold text-stone-900">ICX Member — AIESEC Poznan</h3>
+                  <span className="text-xs text-stone-400 font-medium">Apr 2025 – Present</span>
+                </div>
+                <ul className="space-y-1">
+                  <Bullet>Conduct structured interviews with international candidates and coordinate stakeholder communication across multinational exchange programs</Bullet>
+                </ul>
+              </div>
 
-</div>
-</div>
+              {/* ESN */}
+              <div>
+                <div className="flex flex-wrap items-baseline gap-x-2 mb-1">
+                  <h3 className="text-sm font-bold text-stone-900">Team Leader — Erasmus Student Network (ESN) Poznan</h3>
+                  <span className="text-xs text-stone-400 font-medium">Oct – Dec 2025</span>
+                </div>
+                <ul className="space-y-1">
+                  <Bullet>Led a team organizing international student integration events during the Erasmus intake, coordinating logistics and cross-cultural programming</Bullet>
+                </ul>
+              </div>
 
+            </div>
+          </section>
 
-<!-- EDUCATION -->
-<div class="sec alt" id="education">
-<div class="inner">
-  <div class="s-eyebrow">Education</div>
-  <div class="s-title">Education</div>
-  <div class="s-bar"></div>
-  <div class="edu-grid">
+          <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
 
-    <div class="edu-card">
-      <div class="edu-deg">Master in Quantitative Finance</div>
-      <div class="edu-school">Poznan University of Economics and Business (PUEB)</div>
-      <div class="edu-meta">2024 – Present · <span class="edu-gpa">GPA: 4.94 / 5.0</span> · Rector's Scholarship</div>
-      <div class="edu-tags">
-        <span class="edu-tag">Financial Econometrics</span>
-        <span class="edu-tag">Asset Pricing</span>
-        <span class="edu-tag">Bayesian Methods</span>
-        <span class="edu-tag">Corporate Finance</span>
-        <span class="edu-tag">Portfolio Management</span>
-      </div>
-    </div>
+          {/* PROJECTS */}
+          <section className="max-w-4xl mx-auto px-6 py-12" id="projects">
+            <SectionLabel>Projects</SectionLabel>
+            <div className="space-y-5">
 
-    <div class="edu-card">
-      <div class="edu-deg">Bachelor of Engineering — Computer Science</div>
-      <div class="edu-school">Chandigarh University</div>
-      <div class="edu-meta">2020 – 2024 · <span class="edu-gpa">GPA: 8.51 / 10.0</span> · India</div>
-      <div class="edu-tags">
-        <span class="edu-tag">Machine Learning</span>
-        <span class="edu-tag">Algorithms</span>
-        <span class="edu-tag">Python</span>
-        <span class="edu-tag">SQL</span>
-      </div>
-    </div>
+              {/* Agentic Trading */}
+              <div className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-amber-500" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-700">Actively Building</span>
+                </div>
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-base font-bold text-stone-900 leading-snug pr-3">AgenticTrading — AI-Driven Algorithmic Trading System</h3>
+                  <a href="https://github.com/prabhakarpd7284/AgenticTrading" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+                </div>
+                <p className="text-sm text-stone-600 leading-relaxed mb-3">
+                  A passion project applying quantitative finance principles to real-time markets through AI. Designed a multi-agent system where specialized agents handle <strong className="text-stone-800">market data analysis</strong>, <strong className="text-stone-800">directional equity trading</strong>, <strong className="text-stone-800">options strategy management</strong> (short straddle lifecycle on NIFTY/BANKNIFTY), and <strong className="text-stone-800">deterministic risk control</strong> — reflecting how institutional trading desks separate alpha generation from risk governance.
+                </p>
+                <ul className="space-y-1.5 mb-4">
+                  <Bullet>Built a risk engine that validates 9 deterministic criteria (position sizing, daily loss limits, margin requirements) before any trade executes — mirroring institutional risk management practices</Bullet>
+                  <Bullet>Supports two parallel workflows: intraday equity positions (NSE cash market) and options lifecycle management (HOLD / CLOSE / HEDGE / ROLL) with full P&amp;L attribution</Bullet>
+                  <Bullet>Every trade decision — including rejected ones — is journaled with full audit trail, enabling post-hoc strategy analysis and performance attribution</Bullet>
+                </ul>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Algorithmic Trading", "Risk Management", "Options Strategy", "Portfolio Analytics", "Multi-Agent AI", "Python", "Django"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
 
-  </div>
-</div>
-</div>
+              {/* Volatility Spillover */}
+              <div className="bg-white border border-stone-200 rounded-xl p-5">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-sm font-bold text-stone-900 leading-snug pr-3">Volatility Spillover &amp; Market Connectedness</h3>
+                  <a href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/asset-pricing-financial-markets/project" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+                </div>
+                <p className="text-xs text-stone-500 mb-2">NIFTY50, S&amp;P500, VIX, WTI Oil · 12 years (2013–2025)</p>
+                <ul className="space-y-1">
+                  <Bullet>Quantified cross-market risk transmission across four asset classes, finding that Indian equities are a net shock receiver while US markets and volatility indices are dominant transmitters</Bullet>
+                  <Bullet>Analyzed how market interconnectedness intensifies during crisis episodes — relevant to portfolio risk management and diversification strategy</Bullet>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {["Risk Analysis", "Market Connectedness", "Cross-Asset Research", "Econometrics", "R"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
 
+              {/* ORLEN Valuation */}
+              <div className="bg-white border border-stone-200 rounded-xl p-5">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-sm font-bold text-stone-900 leading-snug pr-3">Corporate Valuation — ORLEN Group (PKN, WSE)</h3>
+                  <a href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/corporate-finance/project" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+                </div>
+                <p className="text-xs text-stone-500 mb-2">Cost of Capital Estimation + DCF Valuation · FY2024</p>
+                <ul className="space-y-1">
+                  <Bullet>Estimated WACC (8.8%) using CAPM, beta adjustment, and consolidated financial data — then built a 5-year free cash flow forecast to derive intrinsic equity value</Bullet>
+                  <Bullet>Concluded the stock was slightly overvalued (intrinsic 104.95 PLN vs market 107.96 PLN, –2.8%) — combining cost of capital analysis with discounted cash flow methodology</Bullet>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {["Corporate Finance", "DCF Valuation", "Cost of Capital", "Financial Modeling", "Excel"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
 
-<!-- CERTIFICATIONS -->
-<div class="sec">
-<div class="inner">
-  <div class="s-eyebrow">In Progress</div>
-  <div class="s-title">Certifications</div>
-  <div class="s-bar"></div>
-  <div class="cert-grid">
+              {/* LMT */}
+              <div className="bg-white border border-stone-200 rounded-xl p-5">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-sm font-bold text-stone-900 leading-snug pr-3">Financial Statement Analysis — Lockheed Martin (NYSE: LMT)</h3>
+                  <a href="https://github.com/gautamprasadwork/quant-finance-masters/tree/main/financial-statement-analysis/project" target="_blank" rel="noreferrer" className="shrink-0 text-xs font-semibold text-blue-700 hover:underline">GitHub ↗</a>
+                </div>
+                <p className="text-xs text-stone-500 mb-2">FY2022–2024 · CFA-framework analysis · 20-slide deliverable</p>
+                <ul className="space-y-1">
+                  <Bullet>Revealed that an 81% ROE was misleading — profitability decomposition showed extreme financial leverage as the primary driver, with margins compressing due to program cost overruns</Bullet>
+                  <Bullet>Benchmarked against RTX, Northrop Grumman, and General Dynamics — delivered a Hold recommendation with a leverage reduction roadmap</Bullet>
+                </ul>
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {["Financial Analysis", "Equity Research", "Profitability Decomposition", "Peer Benchmarking", "Excel"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
 
-    <div class="cert-card">
-      <div class="cert-icon">📊</div>
-      <div>
-        <h3>NISM Research Analyst Exam &amp; Certification</h3>
-        <div class="cert-org">NSE India — National Institute of Securities Markets</div>
-        <span class="cert-pill cp-blue">Exam: August 2026</span>
-      </div>
-    </div>
+            </div>
+          </section>
 
-    <div class="cert-card">
-      <div class="cert-icon">🏆</div>
-      <div>
-        <h3>CFA Level 1</h3>
-        <div class="cert-org">CFA Institute</div>
-        <span class="cert-pill cp-purple">Exam: February 2027</span>
-      </div>
-    </div>
+          <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
 
-  </div>
-</div>
-</div>
+          {/* PUBLICATIONS */}
+          <section className="max-w-4xl mx-auto px-6 py-12" id="publications">
+            <SectionLabel>Publications</SectionLabel>
+            <div className="bg-white border border-stone-200 rounded-xl p-5">
+              <h3 className="text-sm font-bold text-stone-900 mb-1">A Comparative Study on Conventional Methods and Machine Learning Approaches to Stock Market Prediction</h3>
+              <p className="text-xs text-stone-500 mb-2">Chandigarh University · 2024</p>
+              <p className="text-sm text-stone-600 leading-relaxed">
+                Evaluated the predictive accuracy of traditional statistical models against machine learning approaches (random forests, LSTM, SVM) for equity price forecasting — contributing to the growing literature on ML applications in quantitative finance.
+              </p>
+            </div>
+          </section>
 
+          <div className="max-w-4xl mx-auto px-6"><div className="border-t border-stone-200" /></div>
 
-<!-- SKILLS -->
-<div class="sec alt" id="skills">
-<div class="inner">
-  <div class="s-eyebrow">Skills</div>
-  <div class="s-title">Skills</div>
-  <div class="s-bar"></div>
-  <div class="skill-grid">
+          {/* EDUCATION + SKILLS */}
+          <section className="max-w-4xl mx-auto px-6 py-12" id="education">
+            <SectionLabel>Education</SectionLabel>
+            <div className="space-y-5 mb-8">
+              <div className="bg-white border border-stone-200 rounded-xl p-5">
+                <div className="flex flex-wrap justify-between items-baseline gap-2 mb-1">
+                  <h3 className="text-sm font-bold text-stone-900">Master in Quantitative Finance</h3>
+                  <span className="text-xs text-stone-400 font-medium">2024 – Present</span>
+                </div>
+                <p className="text-xs text-blue-700 font-semibold mb-1">Poznan University of Economics and Business (PUEB)</p>
+                <p className="text-xs text-stone-500 mb-3">
+                  <span className="text-emerald-700 font-bold">GPA: 4.94 / 5.0</span> <Dot /> Rector's Scholarship for Academic Excellence
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Financial Econometrics", "Asset Pricing", "Bayesian Methods", "Corporate Finance", "Portfolio Management", "Derivatives"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
 
-    <div class="sg">
-      <h3>Quantitative Finance</h3>
-      <div class="skill-tags">
-        <span class="sk hi">Financial Econometrics</span>
-        <span class="sk hi">GARCH / MGARCH</span>
-        <span class="sk hi">Time Series Analysis</span>
-        <span class="sk hi">VAR Modeling</span>
-        <span class="sk hi">DCF Valuation</span>
-        <span class="sk hi">WACC / CAPM</span>
-        <span class="sk hi">Volatility Modeling</span>
-        <span class="sk">Risk Modeling</span>
-        <span class="sk">Portfolio Analysis</span>
-        <span class="sk">Financial Forecasting</span>
-      </div>
-    </div>
+              <div className="bg-white border border-stone-200 rounded-xl p-5">
+                <div className="flex flex-wrap justify-between items-baseline gap-2 mb-1">
+                  <h3 className="text-sm font-bold text-stone-900">Bachelor of Engineering — Computer Science</h3>
+                  <span className="text-xs text-stone-400 font-medium">2020 – 2024</span>
+                </div>
+                <p className="text-xs text-blue-700 font-semibold mb-1">Chandigarh University, India</p>
+                <p className="text-xs text-stone-500 mb-3">
+                  <span className="text-emerald-700 font-bold">GPA: 8.51 / 10.0</span> <Dot /> Published researcher
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Machine Learning", "Algorithms & Data Structures", "Python", "SQL", "Software Engineering"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
+            </div>
 
-    <div class="sg">
-      <h3>Technical Tools</h3>
-      <div class="skill-tags">
-        <span class="sk hi">R</span>
-        <span class="sk hi">Python</span>
-        <span class="sk hi">Microsoft Excel</span>
-        <span class="sk">SQL</span>
-        <span class="sk">Power BI</span>
-        <span class="sk">R Markdown</span>
-        <span class="sk">Git / GitHub</span>
-      </div>
-    </div>
+            {/* Skills */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Quantitative Finance</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Financial Econometrics", "Volatility Modeling", "Time Series", "Risk Analysis", "DCF / WACC", "Derivatives", "Portfolio Analysis"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Technical</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Python", "R", "Excel", "SQL", "Power BI", "Django", "LangGraph", "Git"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Finance &amp; Reporting</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Financial Modeling", "Budgeting & Forecasting", "KPI Reporting", "Equity Research"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">Languages</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {["English — Professional", "Hindi — Native", "German — A1"].map(t => <Pill key={t}>{t}</Pill>)}
+                </div>
+              </div>
+            </div>
 
-    <div class="sg">
-      <h3>Finance &amp; Reporting</h3>
-      <div class="skill-tags">
-        <span class="sk">Financial Reporting</span>
-        <span class="sk">Budgeting &amp; Forecasting</span>
-        <span class="sk">KPI Dashboards</span>
-        <span class="sk">Ratio Analysis</span>
-        <span class="sk">Data Analysis</span>
-      </div>
-    </div>
+            {/* Recognition */}
+            <p className="text-xs font-bold uppercase tracking-wider text-stone-400 mb-3">Recognition</p>
+            <div className="space-y-2">
+              {[
+                "Rector's Scholarship — Academic Excellence, PUEB (MSc Quantitative Finance)",
+                '1st Prize — "Speak to Lead" National Inter-College Debate Competition, 2022',
+                "NAWA PROM Changemaker — Selected for EU-funded Polish-Finnish academic exchange, 2026",
+              ].map((a, i) => (
+                <div key={i} className="flex items-start gap-2">
+                  <span className="text-stone-400 text-xs mt-0.5">—</span>
+                  <p className="text-sm text-stone-600">{a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
 
-    <div class="sg">
-      <h3>Languages</h3>
-      <div class="skill-tags">
-        <span class="sk hi">English — Professional</span>
-        <span class="sk">Hindi — Native</span>
-        <span class="sk">German — A1</span>
-      </div>
-    </div>
+          {/* CONTACT FOOTER */}
+          <section id="contact" className="scroll-mt-14 bg-stone-900 text-white">
+            <div className="max-w-4xl mx-auto px-6 py-14 text-center">
+              <h2 className="text-xl font-bold mb-2">Let's connect</h2>
+              <p className="text-stone-400 text-sm mb-2 max-w-md mx-auto">
+                Seeking roles in quantitative research, algorithmic trading, risk analytics, and financial modeling — Poland and broader Europe.
+              </p>
+              <p className="text-xs text-stone-500 mb-6 max-w-md mx-auto">
+                Interested in: volatility modeling · options pricing · ML-driven forecasting · VaR &amp; stress testing · working student &amp; junior analyst positions
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center">
+                <a href="mailto:work.gautamprasad@gmail.com" className="text-sm font-medium bg-white text-stone-900 px-6 py-2.5 rounded-lg hover:bg-stone-100 transition-colors">work.gautamprasad@gmail.com</a>
+                <a href="https://linkedin.com/in/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm font-medium bg-white/10 text-white px-5 py-2.5 rounded-lg border border-white/15 hover:bg-white/20 transition-colors">LinkedIn</a>
+                <a href="https://github.com/gautamprasadwork" target="_blank" rel="noreferrer" className="text-sm font-medium bg-white/10 text-white px-5 py-2.5 rounded-lg border border-white/15 hover:bg-white/20 transition-colors">GitHub</a>
+              </div>
+            </div>
+            <div className="border-t border-white/10 text-center py-3">
+              <p className="text-xs text-stone-500">© 2026 Gautam Prasad · Poznan, Poland</p>
+            </div>
+          </section>
+        </div>
+      );
+    }
 
-  </div>
-</div>
-</div>
-
-
-<!-- ACHIEVEMENTS -->
-<div class="sec">
-<div class="inner">
-  <div class="s-eyebrow">Achievements</div>
-  <div class="s-title">Achievements</div>
-  <div class="s-bar"></div>
-  <div class="ach-list">
-    <div class="ach">
-      <div class="ach-icon">🏅</div>
-      <div><h4>Rector's Scholarship — Academic Excellence</h4><p>Awarded by Poznan University of Economics and Business for outstanding academic performance in the MSc Quantitative Finance program.</p></div>
-    </div>
-    <div class="ach">
-      <div class="ach-icon">📄</div>
-      <div><h4>Academic Publication — ML &amp; Stock Market Prediction</h4><p>A Comparative Study on Conventional Methods and Machine Learning Approaches to Stock Market Prediction, Chandigarh University, 2024.</p></div>
-    </div>
-    <div class="ach">
-      <div class="ach-icon">🥇</div>
-      <div><h4>1st Prize — "Speak to Lead" Inter-college Debate (2022)</h4><p>Won first place in a national-level inter-collegiate competition, demonstrating analytical argumentation and communication under pressure.</p></div>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<!-- OTHER ACTIVITIES -->
-<div class="sec alt">
-<div class="inner">
-  <div class="s-eyebrow">Leadership &amp; Volunteering</div>
-  <div class="s-title">Other Activities</div>
-  <div class="s-bar"></div>
-  <div class="act-grid">
-    <div class="act-card">
-      <div class="act-icon">🌍</div>
-      <div>
-        <h4>ICX Member</h4>
-        <div class="act-org">AIESEC Poznań · Apr 2025 – Present</div>
-        <p>Structured interviews with international candidates; stakeholder coordination across multinational exchange programs.</p>
-      </div>
-    </div>
-    <div class="act-card">
-      <div class="act-icon">🤝</div>
-      <div>
-        <h4>Team Leader</h4>
-        <div class="act-org">Erasmus Student Network (ESN) · Oct–Dec 2025</div>
-        <p>Led a team organising international student integration events during the Erasmus intake period.</p>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-
-
-<!-- CONTACT -->
-<div class="contact-wrap" id="contact">
-  <h2>Get in Touch</h2>
-  <p>Open to working student, junior analyst, and internship roles in quantitative finance, risk, or data analytics — Poland and broader Europe.</p>
-  <div class="clinks">
-    <a href="mailto:work.gautamprasad@gmail.com" class="cl cl-solid">✉ work.gautamprasad@gmail.com</a>
-    <a href="https://linkedin.com/in/gautamprasadwork" class="cl cl-ghost" target="_blank">LinkedIn</a>
-    <a href="https://github.com/gautamprasadwork" class="cl cl-ghost" target="_blank">GitHub</a>
-    <a href="tel:+48538538962" class="cl cl-ghost">+48 538 538 962</a>
-  </div>
-</div>
-
-<footer>© 2026 Gautam Prasad · Poznań, Poland · gautamprasadwork.github.io</footer>
-
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<Portfolio />);
+  </script>
 </body>
 </html>
